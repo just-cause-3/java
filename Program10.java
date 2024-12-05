@@ -21,6 +21,8 @@ Code for Program10.java:
 
 
 
+package mypack;
+
 import mypack.MyClass;
 
 public class Program10 {
