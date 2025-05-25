@@ -1,0 +1,86 @@
+#include <stdio.h>
+
+// Global variables
+int indegree[10], flag[10], n, graph[10][10];
+
+void topologicalSort() {
+    int i, j, k, count = 0, iterations_since_progress = 0;
+
+    // Calculate indegree for each vertex
+    for (i = 1; i <= n; i++) {
+        indegree[i] = 0; // Initialize indegree
+        for (j = 1; j <= n; j++) {
+            indegree[i] += graph[j][i]; // Sum of incoming edges from j to i
+        }
+    }
+
+    printf("\nThe topological ordering of the vertices is: ");
+    while (count < n) {
+        iterations_since_progress++;
+
+        // Check for cycle (if we've done more than n iterations without progress)
+        // This condition for cycle detection might be too simple if iterations_since_progress
+        // is reset too eagerly. A more robust check is if no node with indegree 0 can be found.
+        if (iterations_since_progress > n + 1) { // +1 for safety buffer
+            printf("\nTopological ordering is not possible. The given graph is cyclic.\n");
+            return;
+        }
+        
+        int found_vertex_this_round = 0;
+        // Find vertex with indegree 0 that has not been flagged yet
+        for (k = 1; k <= n; k++) {
+            if (indegree[k] == 0 && flag[k] == 0) {
+                printf("%d ", k);
+                count++;
+                flag[k] = 1; // Mark as visited/processed
+                found_vertex_this_round = 1;
+                
+                // Reduce indegree of adjacent vertices
+                for (j = 1; j <= n; j++) {
+                    if (graph[k][j] == 1) { // If there is an edge from k to j
+                        indegree[j]--;
+                    }
+                }
+                iterations_since_progress = 0; // Reset iterations counter as progress was made
+                break; // Process one vertex per outer loop iteration to simplify cycle detection logic
+                       // Or, remove break to process all available 0-indegree nodes in one pass
+            }
+        }
+        if (!found_vertex_this_round && count < n) {
+             // If no vertex was found in this round and we haven't processed all nodes
+             // it implies a cycle if iterations_since_progress has grown large.
+             // The check at the beginning of the loop will handle this.
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int i, j;
+
+    printf("=== TOPOLOGICAL SORTING ===\n");
+
+    printf("Enter the number of vertices (max 9 for 1-based indexing, 10 for 0-based): ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n >= 10) { // Adjust if array sizes change or 0-based indexing is used
+        printf("Number of vertices must be between 1 and 9.\n");
+        return 1;
+    }
+
+    printf("Enter the adjacency matrix (1 for edge, 0 for no edge):\n");
+    for (i = 1; i <= n; i++) {
+        for (j = 1; j <= n; j++) {
+            scanf("%d", &graph[i][j]);
+        }
+    }
+
+    // Initialize flag array (indegree is calculated in topologicalSort)
+    for (i = 1; i <= n; i++) {
+        flag[i] = 0;
+    }
+
+    topologicalSort();
+
+    return 0;
+}

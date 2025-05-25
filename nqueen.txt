@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h> // For abs()
+#include <stdbool.h> // For bool type (C99)
+
+#define N_QUEENS 4  // Renamed N to N_QUEENS to avoid conflict
+// If N_QUEENS needs to be dynamic, board allocation must be dynamic.
+
+int board[N_QUEENS]; // Stores the column of the queen in each row i.e. board[row] = col
+int solution_count = 0;
+
+// Function to print the board
+void printSolution() {
+    int i, j;
+    printf("Solution %d:\n", ++solution_count);
+    for (i = 0; i < N_QUEENS; i++) {
+        for (j = 0; j < N_QUEENS; j++) {
+            if (board[i] == j)
+                printf("Q ");
+            else
+                printf(". ");
+        }
+        printf("\n");
+    }
+    printf("-------------------\n");
+}
+
+// Function to check if the queen can be placed at board[row][col]
+bool isSafe(int row, int col) {
+    int i;
+    // Check this row on left side (not needed as we place one queen per row)
+    // Check upper diagonal on left side
+    // Check lower diagonal on left side
+    // Check same column
+    for (i = 0; i < row; i++) {
+        // board[i] is the column of the queen in row 'i'
+        // col is the current column we are trying for queen in 'row'
+        if (board[i] == col || abs(board[i] - col) == abs(i - row))
+            return false;
+    }
+    return true;
+}
+
+// Recursive backtracking function to solve N-Queens
+void solve(int row) {
+    int col;
+    if (row == N_QUEENS) { // All queens are placed
+        printSolution();
+        return;
+    }
+
+    // Try placing a queen in all columns of the current row
+    for (col = 0; col < N_QUEENS; col++) {
+        if (isSafe(row, col)) {
+            board[row] = col; // Place queen
+            solve(row + 1);   // Recur for the next row
+            // board[row] = -1; // Backtrack (not strictly necessary here as board[row] will be overwritten)
+        }
+    }
+}
+
+// ======================= Main Function =======================
+int main() {
+    // Initialize board elements to a value indicating no queen, if needed by isSafe.
+    // For this implementation, isSafe only checks previous rows, so initialization isn't strictly required.
+    // for(int i=0; i<N_QUEENS; i++) board[i] = -1; // Example initialization
+
+    printf("%d-Queens solutions:\n", N_QUEENS);
+    solve(0); // Start solving from the first row (row 0)
+
+    if(solution_count == 0){
+        printf("No solutions found for N=%d\n", N_QUEENS);
+    }
+    return 0;
+}

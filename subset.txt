@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h> // For C89 VLAs might need malloc, or generally for dynamic arrays
+
+// path: array to store the current subset elements
+// path_len: current number of elements in path
+void findSubset(int arr[], int n_total, int index, int current_sum, int target_sum, int path[], int path_len) {
+    // Base case: all elements have been considered
+    if (index == n_total) {
+        if (current_sum == target_sum) {
+            printf("Subset found: ");
+            for (int i = 0; i < path_len; i++) {
+                printf("%d ", path[i]);
+            }
+            printf("\n");
+        }
+        return;
+    }
+
+    // Recursive step:
+
+    // Case 1: Include the current element arr[index] in the subset
+    path[path_len] = arr[index];
+    findSubset(arr, n_total, index + 1, current_sum + arr[index], target_sum, path, path_len + 1);
+
+    // Case 2: Exclude the current element arr[index] from the subset
+    // No change to path or path_len for this branch, effectively "backtracking"
+    // the addition made in "Case 1" for the subsequent recursive calls.
+    findSubset(arr, n_total, index + 1, current_sum, target_sum, path, path_len);
+}
+
+int main() {
+    int n, d, i;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    if (n <= 0) {
+        printf("Number of elements must be positive.\n");
+        return 1;
+    }
+
+    int arr[n]; // VLA (C99)
+    int path[n]; // Auxiliary array to store subset path (max possible length is n)
+                 // For C89, use dynamic allocation:
+                 // int *arr = (int*)malloc(n * sizeof(int));
+                 // int *path = (int*)malloc(n * sizeof(int));
+                 // Check for NULL after malloc.
+
+    printf("Enter elements:\n");
+    for (i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    printf("Enter target sum: ");
+    scanf("%d", &d);
+
+    printf("\nSubsets with sum %d:\n", d);
+    findSubset(arr, n, 0, 0, d, path, 0);
+
+    // if using malloc:
+    // free(arr);
+    // free(path);
+
+    return 0;
+}

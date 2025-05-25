@@ -1,0 +1,114 @@
+#include <stdio.h>
+
+// Global variables
+int d[20], s[20], w[20][20], p[20], n, v;
+
+// Function to find the vertex with the minimum distance among unvisited vertices
+int findmin() {
+    int i, min_idx = -1; // Initialize min_idx to an invalid value
+
+    // Find the first unvisited vertex to initialize min_idx
+    for (i = 1; i <= n; i++) {
+        if (s[i] == 0) {
+            min_idx = i;
+            break;
+        }
+    }
+
+    // If no unvisited vertex found (should not happen in normal flow of Dijkstra), return current min_idx
+    if (min_idx == -1) return -1; 
+
+    // Iterate through all vertices to find the one with the actual minimum distance
+    for (i = 1; i <= n; i++) {
+        if (s[i] == 0 && d[i] < d[min_idx]) {
+            min_idx = i;
+        }
+    }
+    return min_idx;
+}
+
+// Dijkstra's algorithm implementation
+void dijkstra() {
+    int i, j_node, u, w1_node; // Renamed j to j_node and w1 to w1_node to avoid conflict if used later
+
+    // Initialization
+    for (i = 1; i <= n; i++) {
+        d[i] = 999; // Represents infinity
+        s[i] = 0;   // 0 means unvisited
+        p[i] = 0;   // Predecessor
+    }
+    d[v] = 0; // Distance from source to source is 0
+
+    // Main loop of Dijkstra's algorithm
+    for (i = 1; i <= n; i++) {
+        u = findmin();
+        if (u == -1) break; // No path to remaining nodes or all processed
+        s[u] = 1; // Mark vertex u as visited
+
+        // Update distances of adjacent vertices
+        for (w1_node = 1; w1_node <= n; w1_node++) {
+            if (s[w1_node] == 0 && w[u][w1_node] != 999) { // Check for edge existence (w[u][w1_node] != 999)
+                if (d[u] + w[u][w1_node] < d[w1_node]) {
+                    d[w1_node] = d[u] + w[u][w1_node];
+                    p[w1_node] = u;
+                }
+            }
+        }
+    }
+
+    // Print shortest path costs
+    printf("Shortest path costs:\n");
+    for (i = 1; i <= n; i++) {
+        if (d[i] == 999)
+            printf("No path from %d to %d\n", v, i);
+        else
+            printf("Path cost from %d to %d is %d\n", v, i, d[i]);
+    }
+
+    // Print shortest paths
+    printf("Shortest paths are:\n");
+    for (i = 1; i <= n; i++) {
+        if (i != v && d[i] != 999) {
+            printf("%d", i);
+            j_node = p[i];
+            while (p[j_node] != 0) { // Path reconstruction until predecessor is source's predecessor (0)
+                printf(" <- %d", j_node);
+                j_node = p[j_node];
+            }
+            // The loop stops when p[j_node] is 0. This means j_node itself is the first step from v.
+            // Or, if the path is i <- v, then p[i] = v, p[v] = 0. j_node becomes v.
+            // The loop `while(p[j_node] != 0)` correctly handles this because p[v] is 0.
+            // So, after the loop, if j_node is not 0 (i.e., a path exists and j_node is a valid vertex),
+            // and it's not the source vertex itself being printed initially.
+            if (j_node != 0) { // Ensure j_node is a valid vertex from the path
+                 printf(" <- %d", j_node); // This prints the vertex directly connected to v if j_node is v
+            } else if (p[i] == v) { // Special case: direct path i <- v
+                 // This case is covered if j_node (which would be v) is printed by the line above if j_node != 0.
+                 // If p[i] is v, then j_node = v initially. Loop condition p[v]!=0 (i.e. 0!=0) is false.
+                 // So, the final "<- v" is needed.
+            }
+             printf(" <- %d\n", v);
+        } else if (i == v && d[i] == 0) {
+            printf("%d <- %d\n",i,v); // Path from source to itself
+        }
+    }
+}
+
+int main() {
+    int i, j;
+
+    printf("Enter the number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter the cost matrix (999 for no direct edge or infinity):\n");
+    for (i = 1; i <= n; i++)
+        for (j = 1; j <= n; j++)
+            scanf("%d", &w[i][j]);
+
+    printf("Enter the source vertex: ");
+    scanf("%d", &v);
+
+    dijkstra();
+
+    return 0;
+}
