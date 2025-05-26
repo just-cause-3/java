@@ -1,0 +1,13 @@
+sudo apt update 
+sudo apt install snort
+$sudo snort –version
+$ snort -T -c /etc/snort/snort.conf
+$snort -q -A console -c /etc/snort/snort.conf
+ping the ubuntu machine from kali machine.
+Ping 10.0.2.15 (my ubuntu machine ip address- you should give your ubuntu machine ip address)
+sudo chmod 777 /etc/snott/snort.conf
+sudo nano /etc/snort/rules/local.rules
+alert icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"ICMP DETECTED KSIT"; sid:10000002; rev:2;)
+alert tcp any any -> $HOME_NET 21 (msg:"FTP ATTEMPT DETECTED KSIT"; sid:10000003; rev:1;)
+
+$ sudo snort -A console -c /etc/snort/snort.conf
