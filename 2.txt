@@ -1,0 +1,76 @@
+
+Open browser
+
+Search: nmap download
+
+Open first site (nmap.org)
+
+Click “Windows”
+
+Download latest version (e.g., nmap-7.95-setup.exe)
+
+Install Nmap
+
+Basic Scan
+7. Open Command Prompt
+8. Type: ipconfig
+9. Copy your IP address
+10. Open Zenmap
+11. Paste IP in Target
+12. Click Scan
+
+Example Command 1: Scan port 80
+
+Target: 192.168.27.29
+
+Command: nmap -p80 192.168.27.29
+
+
+PORT    STATE  SERVICE  
+80/tcp  closed http
+Example Command 2: Scan ports 1 to 200
+
+Target: 192.168.27.29
+
+Command: nmap -p 1-200 192.168.27.29
+
+PORT     STATE     SERVICE  
+135/tcp  open      msrpc  
+137/tcp  filtered  netbios-ns  
+139/tcp  open      netbios-ssn
+Example Command 3: Fast Scan
+
+Target: 192.168.27.29
+
+Command: nmap -F 192.168.27.29
+
+PORT     STATE  SERVICE  
+135/tcp  open   msrpc  
+139/tcp  open   netbios-ssn  
+445/tcp  open   microsoft-ds
+Example Command 4: Default scan of all ports
+
+Target: 192.168.56.1
+
+Command: nmap -p- 192.168.56.1
+
+PORT       STATE  SERVICE  
+5040/tcp   open   unknown  
+7680/tcp   open   pando-pub  
+49664/tcp  open   unknown
+Example Command 5: TCP connect scan
+
+Target: 192.168.56.1
+
+Command: nmap -sT 192.168.56.1
+
+Output:
+
+arduino
+Copy
+Edit
+PORT     STATE  SERVICE  
+135/tcp  open   msrpc  
+139/tcp  open   netbios-ssn  
+445/tcp  open   microsoft-ds
+Done.
