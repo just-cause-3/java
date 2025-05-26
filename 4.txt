@@ -1,0 +1,29 @@
+Open Terminal
+
+sudo apt update
+
+sudo apt install wireshark
+
+sudo usermod -aG wireshark $USER
+
+Reboot system or run newgrp wireshark
+
+Open Wireshark
+
+Select interface (e.g., eth0 or wlan0)
+
+Click “Start Capturing Packets” or press Ctrl+E
+
+Let it capture packets
+
+Click “Stop” or press Ctrl+E
+
+Click on a packet to view details
+
+Apply display filters (e.g., http, icmp, dns)
+
+Use capture filters before capture (e.g., host 192.168.1.1)
+
+Save the capture if needed
+
+Close Wireshark
