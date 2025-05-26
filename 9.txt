@@ -1,0 +1,39 @@
+Open terminal.
+
+Run:
+
+bash
+Copy
+Edit
+sudo ettercap -G
+Click OK on the startup window.
+
+Click Sniff → Unified sniffing.
+
+Choose network interface (e.g., eth0 or wlan0), click OK.
+
+Click Hosts → Scan for hosts.
+
+Click Hosts → Hosts List.
+
+Select first host → Click Add to Target 1.
+
+Select second host → Click Add to Target 2.
+
+Click Mitm → ARP Poisoning.
+
+Select Sniff remote connections, click OK.
+
+Click Start → Start sniffing.
+
+🔸 On Target Machines (e.g., Ubuntu or another VM)
+Perform any communication (e.g., open browser, ping, FTP).
+
+(Optional) Run arp -a to view ARP table.
+
+🔸 Monitoring Traffic (Optional)
+Open Wireshark on Kali.
+
+Choose network interface.
+
+Start capturing packets.
