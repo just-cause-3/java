@@ -1,0 +1,59 @@
+
+sudo apt-get install juice-shop
+If error occurs, run:
+sudo apt update
+then retry step 2 until successful.
+
+After installation, run:
+juice-shop -h
+Firefox opens Juice Shop — create a new user account.
+
+Go to Firefox Extensions → Add “FoxyProxy”.
+
+Open Terminal and run:
+
+burpsuite
+Click OK and open Burp Suite completely.
+
+Go to Proxy tab in Burp → Turn ON Interceptor.
+
+Go back to Firefox → Click on FoxyProxy → Click Options.
+
+Click Proxies → Click Add.
+
+In the new window:
+
+Enter Title
+
+Enter Username & Password (same as Juice Shop login)
+
+Hostname: 127.0.0.1
+
+Port: 8080
+
+Save Proxy settings.
+
+Logout from Juice Shop website.
+
+Enable the proxy you created via FoxyProxy.
+
+Login again to Juice Shop with your credentials.
+
+Go to Burp Suite → Proxy tab → Check captured request.
+
+Right-click → Send to Intruder.
+
+Click on Intruder tab.
+
+In Firefox, open new tab → Search for:
+
+sql.txt files for injection
+Open first GitHub link → Download sql.txt file → Save in Downloads.
+
+In Burp → Intruder tab → Click Payloads.
+
+Click Load → Select downloaded sql.txt file.
+
+Click Start Attack.
+
+Wait for attack to complete → Note down results as Output.
