@@ -1,0 +1,8 @@
+	Search Wireshark in the browser.
+	Install Wireshark windows x64 installer in the system.
+	Then go to Wireshark application and open it.
+	Wireshark network analyser gets displayed.
+	Select any files such as ethernet, adapter for loopback traffic capture etc.
+	Various packets in the selected file in them, select any one of the packet and capture them.
+	Open search column and enter “tcp” and note down the results.
+	Open search column and enter “udp” and note down the results.
