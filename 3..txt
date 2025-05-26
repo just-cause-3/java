@@ -1,0 +1,64 @@
+Search "gophish" in browser
+
+Download and extract GoPhish 12.1 (Windows 64-bit)
+
+Run GoPhish executable
+
+Copy HTTP link from prompt
+
+Paste link in browser
+
+Enter default username and password from prompt
+
+Reset the password
+
+Save new password
+
+Dashboard opens
+
+Create Sending Profile
+10. Go to “Sending Profiles”
+11. Click “New Profile”
+12. Fill in:
+  - Name: phishing
+  - SMTP From: support@gmail.com
+  - Host: smtp.gmail.com
+  - Username: your Gmail username
+  - Password: your Gmail password
+13. Save profile
+
+Create Landing Page
+14. Go to “Landing Pages”
+15. Click “New Page”
+16. Fill in Name: 365
+17. Search "gophish 365 template" on browser
+18. Open GitHub link, copy MS login HTML code
+19. Paste code into Landing Page HTML
+20. Search to preview MS login
+21. Save landing page
+
+Create Email Template
+22. Go to “Email Templates”
+23. Click “New Template”
+24. Fill in:
+  - Name: 365 Microsoft Login
+  - Envelope Sender: support@microsoft.com
+  - Subject: Hey your account is getting some problem
+  - Text/HTML: Copy LinkedIn HTML code from GitHub Gophish templates and paste
+25. Save template
+
+Create Users and Groups
+26. Go to “Users & Groups”
+27. Click “New Group”
+28. Fill in Group Name
+29. Add members: name, email, position
+30. Save group
+
+Create Campaign
+31. Go to “Campaigns”
+32. Click “New Campaign”
+33. Fill in details:
+  - Name: phishing
+  - Select previously created email template, landing page, sending profile, and user group
+34. Launch campaign
+35. View campaign results
