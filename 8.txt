@@ -1,0 +1,12 @@
+Rkhunter (Rootkit Hunter) is an open-source Unix/Linux based scanner tool for Linux systems released under GPL that scans backdoors, rootkits, and local exploits on your systems.
+It scans hidden files, wrong permissions set on binaries, suspicious strings in the kernel, etc.
+Rootkit hunter is a well-known tool for checking vulnerabilities, rootkits, back doors, and possible local exploits on a server.
+It is possible to use it on any server used for any purpose. When tuned and automated, it can report any suspicious activity to the system administrator.
+This procedure outlines the installation, tuning, and use of rootkit hunter. rkhunter is just one possible part of a hardened server setup. Use it alone or with other tools to maximize security.
+
+•	Open Root terminal in Kali Linux.
+sudo apt-get install chkrootkit.
+	Command: “chkrootkit -h”
+
+sudo apt-get install rkhunter.
+	Command: “rkhunter -h”
