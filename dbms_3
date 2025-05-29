@@ -1,0 +1,37 @@
+Step-by-Step SQL Operations
+Create Table
+
+CREATE TABLE Employee4 (E_id INT, E_name VARCHAR(50), Age INT, Salary DECIMAL(10,2));
+
+Insert Records
+
+INSERT INTO Employee4 (E_id, E_name, Age, Salary) VALUES
+(1, 'John Doe', 30, 60000.00),
+(2, 'Jane Smith', 25, 55000.00),
+(3, 'Alice Johnson', 35, 72000.50),
+(4, 'Bob Brown', 28, 48000.75),
+(5, 'Charlie Davis', 40, 85000.00);
+
+Display Records
+
+SELECT * FROM Employee4;
+
+Count Employee Names
+
+SELECT COUNT(E_name) AS num_employees FROM Employee4;
+
+Find Maximum Age
+
+SELECT MAX(Age) AS max_age FROM Employee4;
+
+Find Minimum Age
+
+SELECT MIN(Age) AS min_age FROM Employee4;
+
+Salaries in Ascending Order
+
+SELECT Salary FROM Employee4 ORDER BY Salary ASC;
+
+Grouped Salaries of Employees
+
+SELECT Salary, COUNT(*) AS num_employees FROM Employee4 GROUP BY Salary;
