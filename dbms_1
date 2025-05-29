@@ -1,4 +1,9 @@
 Create Table
+a.	Create a user and grant all permissions to the user. 
+b.	Insert three records
+c.	Rollback to remove the inserted records
+d.	Add primary key constraint and not null constraint to the employee table.
+e.  Insert null values to the employee table and verify the result.
 
 
 CREATE TABLE Employee2(
