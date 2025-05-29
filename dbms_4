@@ -1,0 +1,59 @@
+1. Table Creation
+CREATE TABLE CUSTOMER (
+  ID INT,
+  NAME VARCHAR(50),
+  AGE INT,
+  ADDRESS VARCHAR(100),
+  SALARY DECIMAL(10, 2)
+);
+
+
+2. Insert Sample Records
+INSERT INTO CUSTOMER VALUES (1, 'Alive', 24, 'Khammam', 2000);
+INSERT INTO CUSTOMER VALUES (2, 'Bob', 27, 'Kadappa', 3000);
+INSERT INTO CUSTOMER VALUES (3, 'Catri', 25, 'Guntur', 4000);
+INSERT INTO CUSTOMER VALUES (4, 'Dena', 28, 'Hyderabad', 5000);
+INSERT INTO CUSTOMER VALUES (5, 'Eeshwar', 27, 'Kurnool', 6000);
+INSERT INTO CUSTOMER VALUES (6, 'Farooq', 28, 'Nellur', 7000);
+
+
+
+3. Trigger Creation
+CREATE OR REPLACE TRIGGER salary_difference
+BEFORE INSERT OR UPDATE OR DELETE ON CUSTOMER
+FOR EACH ROW
+DECLARE
+  salary_diff NUMBER;
+BEGIN
+  IF INSERTING THEN
+    dbms_output.put_line('New salary: ' || :NEW.salary);
+  ELSIF DELETING THEN
+    dbms_output.put_line('Old salary: ' || :OLD.salary);
+  ELSIF UPDATING THEN
+    salary_diff := :NEW.salary - :OLD.salary;
+    dbms_output.put_line('Old salary: ' || :OLD.salary);
+    dbms_output.put_line('New salary: ' || :NEW.salary);
+    dbms_output.put_line('Salary difference: ' || salary_diff);
+  END IF;
+END;
+/
+✅ Make sure serveroutput is ON to see dbms_output results.
+
+
+SET SERVEROUTPUT ON;
+
+4. Trigger in Action
+a. Insert Example
+INSERT INTO CUSTOMER VALUES (7, 'Kriti', 30, 'Delhi', 97500.00);
+-- Output: New salary: 97500
+  
+b. Update Example
+UPDATE CUSTOMER SET SALARY = 6000 WHERE ID = 1;
+-- Output:
+-- Old salary: 2000
+-- New salary: 6000
+-- Salary difference: 4000
+  
+c. Delete Example
+DELETE FROM CUSTOMER WHERE ID = 2;
+-- Output: Old salary: 3000
