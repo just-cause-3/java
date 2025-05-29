@@ -1,0 +1,69 @@
+•	SQL> create table O_RollCal(Roll int, Name varchar(20));
+
+Table created.
+
+•	SQL> create table N_Rollcal(Roll int, Name varchar(20));
+
+Table created.
+
+•	SQL> insert into O_RollCal values(1,'a');
+
+1 row created.
+
+•	SQL> insert into O_RollCal values(2,'b');
+
+1 row created.
+
+•	SQL> insert into O_RollCal t values(3,'c');
+
+1 row created.
+
+SQL> insert into O_RollCal values(4,'d');
+
+1 row created.
+
+SQL> insert into N_Rollcal  values(1,'a');
+
+1 row created.
+
+SQL> insert into N_Rollcal values (2,'b');
+
+1 row created.
+
+SQL> insert into N_Rollcal  values(3,'3');
+
+1 row created.
+
+SQL> insert into N_Rollcal values(4,'d');
+
+1 row created.
+
+SQL> insert into N_Rollcal  values(5,'e');
+
+
+set autoprint on;
+set serveroutput on;
+set verify off;
+declare 
+cursor cu1 is
+select Roll,Name from N_RollCal;
+cursor cu2 is
+select Roll from O_RollCal;
+rno int;
+nm varchar(20); 
+rno2 int;
+begin
+open cu1; 
+open cu2;
+loop
+fetch cu1 into rno,nm; 
+fetch cu2 into rno2;
+exit when cu1%found = false; 
+if rno2 <> rno then
+insert into O_RollCal values(rno,nm); 
+end if;
+end loop; 
+close cu1; 
+close cu2; 
+end;
+/
