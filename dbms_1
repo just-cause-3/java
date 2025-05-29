@@ -1,0 +1,64 @@
+Create Table
+
+
+CREATE TABLE Employee2(
+  EMPNO INT,
+  ENAME VARCHAR(50),
+  JOB VARCHAR(50),
+  MANAGER_NO INT,
+  SAL DECIMAL(10, 2),
+  COMMISSION DECIMAL(10, 2)
+);
+Create User and Grant Permissions
+
+
+CREATE USER 'wxyz'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON testdb.employee2 TO 'wxyz'@'localhost';
+Insert Records
+
+
+INSERT INTO Employee2(EMPNO, ENAME, JOB, MANAGER_NO, SAL, COMMISSION)
+VALUES (1, 'John Doe', 'Manager', NULL, 5000.00, 1000.00);
+
+INSERT INTO Employee2(EMPNO, ENAME, JOB, MANAGER_NO, SAL, COMMISSION)
+VALUES (2, 'John S', 'clerk', 1, 3000.00, NULL);
+
+INSERT INTO Employee2(EMPNO, ENAME, JOB, MANAGER_NO, SAL, COMMISSION)
+VALUES (3, 'Jane S', 'Analyst', 2, 4000.00, 500.00);
+Start Transaction and Savepoint
+
+
+START TRANSACTION;
+SAVEPOINT s;
+Insert Additional Record
+
+
+INSERT INTO Employee2(EMPNO, ENAME, JOB, MANAGER_NO, SAL, COMMISSION)
+VALUES (5, 'Eckert', 'user', 4, 5000.00, 600.00);
+Check Records
+
+
+SELECT * FROM Employee2;
+Rollback to Savepoint
+
+
+ROLLBACK TO s;
+Verify Rolled Back Records
+
+
+SELECT * FROM Employee2;
+Add Primary Key Constraint
+
+
+ALTER TABLE Employee2 ADD CONSTRAINT PRIMARY KEY (EMPNO);
+Add NOT NULL Constraints
+
+
+ALTER TABLE Employee2 
+MODIFY ENAME VARCHAR(50) NOT NULL, 
+MODIFY JOB VARCHAR(50) NOT NULL;
+Attempt Inserting NULL Values
+
+
+INSERT INTO Employee2(EMPNO, ENAME, JOB, MANAGER_NO, SAL, COMMISSION)
+VALUES (4, NULL, NULL, NULL, NULL, NULL);
